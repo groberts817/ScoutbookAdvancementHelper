@@ -1,1 +1,1 @@
-"# ScoutbookAdvancementHelper" 
+# ScoutbookAdvancementHelper
