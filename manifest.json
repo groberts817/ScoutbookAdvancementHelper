@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "BSAExtension",
+  "version": "1.0",
+  "description": "Adds a custom column to tables on a webpage",
+  "permissions": ["scripting", "tabs"],
+  "host_permissions": ["https://scoutbook.scouting.org/*"],
+  "action": {
+    "default_title": "BSA Advancement Helper"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
