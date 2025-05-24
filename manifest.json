@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "BSAExtension",
+  "name": "Scoutbook Advancement Helper",
   "version": "1.0",
-  "description": "Adds a custom column to tables on a webpage",
+  "description": "Allows users to quickly submit all requirements for a rank to Scoutbook.",
   "permissions": ["scripting", "tabs"],
   "host_permissions": ["https://scoutbook.scouting.org/*"],
   "action": {
-    "default_title": "BSA Advancement Helper"
+    "default_title": "Scoutbook Advancement Helper"
   },
   "background": {
     "service_worker": "background.js"
