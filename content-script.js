@@ -41,28 +41,35 @@ function addDateAndNoteColumns() {
     if (document.querySelector(".ext-date-input")) return;
 
     // Add new cells to each row
-    const table = document.querySelector('table.requirementsTable');
-    const rows = table.rows;
-    if (!rows.length) return;
-    for (let i = 0; i < rows.length; i++) {
-        const row = rows[i];
+    const tables = document.querySelectorAll('table.requirementsTable');
+    for (let i = 0; i < tables.length; i++) {
+        const table = tables[i];
+        const rows = table.rows;
+        if (!rows.length) return;
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            if (row.innerHTML.includes('virtualRequirement')) {
+                // Skip rows that are virtual requirements
+                continue;
+            }
 
-        // Add date cell
-        const dateCell = document.createElement('td');
-        const dateInput = document.createElement('input');
-        dateInput.type = 'date';
-        dateInput.classList.add('ext-date-input');
-        dateCell.appendChild(dateInput);
-        row.appendChild(dateCell);
+            // Add date cell
+            const dateCell = document.createElement('td');
+            const dateInput = document.createElement('input');
+            dateInput.type = 'date';
+            dateInput.classList.add('ext-date-input');
+            dateCell.appendChild(dateInput);
+            row.appendChild(dateCell);
 
-        // Add note cell
-        const noteCell = document.createElement('td');
-        const noteInput = document.createElement('input');
-        noteInput.type = 'text';
-        noteInput.classList.add('ext-note-input');
-        noteInput.placeholder = 'Approved by...';
-        noteCell.appendChild(noteInput);
-        row.appendChild(noteCell);
+            // Add note cell
+            const noteCell = document.createElement('td');
+            const noteInput = document.createElement('input');
+            noteInput.type = 'text';
+            noteInput.classList.add('ext-note-input');
+            noteInput.placeholder = 'Approved by...';
+            noteCell.appendChild(noteInput);
+            row.appendChild(noteCell);
+        }
     }
 }
 
@@ -72,13 +79,20 @@ async function collectData() {
     // Go from 'Scout Rank Requirements' to 'Scout Requirement' to match note title text
     rankRequirementText = rankRequirementText.trim().replace('Rank ', '').replace('Requirements', 'Requirement');
 
-    const table = document.querySelector('table.requirementsTable');
-    const rows = table.rows;
     const myRows = [];
-    for (let i = 0; i < rows.length; i++) {
-        const rowData = getRowData(rows[i]);
-        if (rowData.dateCompleted || rowData.note) {
-            myRows.push(rowData);
+    const tables = document.querySelectorAll('table.requirementsTable');
+    for (let i = 0; i < tables.length; i++) {
+        const table = tables[i];
+        const rows = table.rows;
+        for (let i = 0; i < rows.length; i++) {
+            if (rows[i].innerHTML.includes('virtualRequirement')) {
+                // Skip rows that are virtual requirements
+                continue;
+            }
+            const rowData = getRowData(rows[i]);
+            if (rowData.dateCompleted || rowData.note) {
+                myRows.push(rowData);
+            }
         }
     }
 
